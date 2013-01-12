@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_admin_bootstrapped',
     'django.contrib.admin',
+    'syncer',
 )
 
 LOGGING = {
