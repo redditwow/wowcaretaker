@@ -9,4 +9,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'wowcaretaker.views.home', name='home'),
     # url(r'^wowcaretaker/', include('wowcaretaker.foo.urls')),
     url(r'^admin/', include(admin.site.urls)),
+
+    # syncer
+    url(r'^update/(?P<subreddit>[^/]+)/$', 'syncer.views.subreddit'),
 )
