@@ -1,7 +1,7 @@
-from ConfigParser import RawConfigParser
+from ConfigParser import SafeConfigParser
 
-config = RawConfigParser()
-config.read('../../etc/settings.ini')
+config = SafeConfigParser()
+config.read('../etc/settings.ini')
 
 SITE_ID = 1
 
