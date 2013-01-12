@@ -7,6 +7,9 @@ config.read('../etc/settings.ini')
 
 SITE_ID = 1
 
+# celery
+BROKER_URL = config.get('celery', 'BROKER_URL')
+
 # debug related junk
 DEBUG = config.get('debug', 'DEBUG')
 TEMPLATE_DEBUG = config.get('debug', 'TEMPLATE_DEBUG')
