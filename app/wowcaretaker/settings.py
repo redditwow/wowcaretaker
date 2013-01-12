@@ -1,4 +1,6 @@
 from ConfigParser import SafeConfigParser
+import djcelery
+djcelery.setup_loader()
 
 config = SafeConfigParser()
 config.read('../etc/settings.ini')
@@ -83,6 +85,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_admin_bootstrapped',
     'django.contrib.admin',
+    'djcelery',
     'syncer',
 )
 
