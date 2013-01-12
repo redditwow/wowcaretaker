@@ -36,4 +36,4 @@ nosetests.xml
 
 # wowcaretaker stuff
 
-app/wowcaretaker/etc/settings.ini
+etc/settings.ini
