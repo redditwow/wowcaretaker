@@ -89,6 +89,7 @@ INSTALLED_APPS = (
     'django_admin_bootstrapped',
     'django.contrib.admin',
     'djcelery',
+    'kombu.transport.django',
     'syncer',
 )
 
