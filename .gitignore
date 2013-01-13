@@ -37,3 +37,4 @@ nosetests.xml
 # wowcaretaker stuff
 
 etc/settings.ini
+repo
