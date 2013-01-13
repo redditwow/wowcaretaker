@@ -100,6 +100,7 @@ INSTALLED_APPS = (
     'djcelery',
     'kombu.transport.django',
     'syncer',
+    'threads',
 )
 
 LOGGING = {
