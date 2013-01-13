@@ -1,5 +1,6 @@
 from ConfigParser import SafeConfigParser
 import djcelery
+from praw import Reddit, errors
 djcelery.setup_loader()
 
 config = SafeConfigParser()
@@ -9,6 +10,14 @@ SITE_ID = 1
 
 # celery
 BROKER_URL = config.get('celery', 'BROKER_URL')
+
+# bot stoof
+BOT_USERNAME = config.get('bot', 'USERNAME')
+BOT_PASSWORD = config.get('bot', 'PASSWORD')
+BOT_USERAGENT = config.get('bot', 'USERAGENT')
+
+reddit = Reddit(user_agent=BOT_USERAGENT)
+reddit.login(username=BOT_USERNAME, password=BOT_PASSWORD)
 
 # debug related junk
 DEBUG = config.get('debug', 'DEBUG')
