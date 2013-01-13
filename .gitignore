@@ -38,3 +38,4 @@ nosetests.xml
 
 etc/settings.ini
 repo
+celerybeat-schedule
