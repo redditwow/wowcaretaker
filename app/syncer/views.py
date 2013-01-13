@@ -21,9 +21,11 @@ def _is_github_ip(ip):
 
 @csrf_exempt
 def subreddit(request, subreddit):
+
+    request_ip = request.META["REMOTE_ADDR"]
+
     if request.method=="POST":
 
-        request_ip = request.META["REMOTE_ADDR"]
         request_is_valid  = _is_github_ip(request_ip)
 
         if request_is_valid:
