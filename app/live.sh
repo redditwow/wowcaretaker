@@ -16,6 +16,6 @@ fi
 
 exec /usr/bin/env - \
   PYTHONPATH="../python:.." \
-  ./manage.py runfcgi host=$HOST port=$PORT pidfile=$PIDFILE  method=threaded maxspare=2
+  ./manage.py runfcgi host=$HOST port=$PORT pidfile=$PIDFILE --settings=wowcaretaker.settings method=threaded maxspare=2
 
 # --settings=wowcaretaker.settings_live
