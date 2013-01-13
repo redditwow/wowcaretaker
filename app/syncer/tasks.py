@@ -15,7 +15,7 @@ def pull_repo(subreddit, git_url):
     sr = Subreddit.objects.get(subreddit_name=subreddit)
     url = sr.subreddit_repo.url
 
-    if git_url is url:
+    if git_url == url:
         print "The url from git matches our url in the database"
 
         # our repos are going to be stored locally inside of the 'repo' folder
