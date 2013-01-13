@@ -7,6 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from syncer.models import Subreddit, GithubIP
 import simplejson as json
 
+import syncer.tasks
+
 def _is_github_ip(ip):
     allowed_ips = list(GithubIP.objects.all())
 
@@ -27,7 +29,7 @@ def subreddit(request, subreddit):
         if request_is_valid:
 
             try:
-                github_request = json.loads(request.POST['payload'])
+                github_payload = json.loads(request.POST['payload'])
 
             except:
                 print "Request made from {ip} was valid but payload was not submitted.".format(ip=request_ip)
@@ -35,6 +37,10 @@ def subreddit(request, subreddit):
 
             else:
                 print "Request made from {ip} was valid and contained a payload".format(ip=request_ip)
+
+                # a valid request with payload means we need to call a task
+                syncer.tasks.pull_repo(subreddit, github_payload['repository']['url'])
+
                 return HttpResponse("Thank you for your payload ;)")
 
         else:
@@ -43,4 +49,5 @@ def subreddit(request, subreddit):
 
     else:
         print "Request made from {ip} did not submit POST data.".format(ip=request_ip)
-        return Http404()
+
+        return HttpResponse("Hello")
