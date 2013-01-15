@@ -10,6 +10,7 @@ SITE_ID = 1
 
 # celery
 BROKER_URL = config.get('celery', 'BROKER_URL')
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
 # bot stoof
 BOT_USERNAME = config.get('bot', 'USERNAME')
