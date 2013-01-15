@@ -51,3 +51,5 @@ def pull_repo(subreddit, git_url):
     else:
         print "The url from git does not match our url in the database"
         pass
+
+    return repo
