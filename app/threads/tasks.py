@@ -22,3 +22,13 @@ def create_thread(subreddit, thread_title, thread_text):
     reddit.submit(subreddit, thread_title, thread_text)
 
     return "Thread"
+
+@task
+def remove_thread(subreddit, thread_id, spam=False):
+    print "remove_thread()"
+
+    reddit.remove(id=thread_id, spam=spam)
+
+
+#@task
+#def find_bad_threads

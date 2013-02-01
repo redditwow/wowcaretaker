@@ -102,6 +102,7 @@ INSTALLED_APPS = (
     'kombu.transport.django',
     'syncer',
     'threads',
+    'banned'
 )
 
 LOGGING = {
