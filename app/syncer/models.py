@@ -41,3 +41,9 @@ class Subreddit(models.Model):
 
     def __unicode__(self):
         return self.name
+
+# simple syncer log
+class Log(models.Model):
+    timestamp = models.DateTimeField('date published')
+    entry = models.TextField(max_length=2000)
+    
