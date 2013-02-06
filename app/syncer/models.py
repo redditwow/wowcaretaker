@@ -29,6 +29,7 @@ class RedditGithubRepo(models.Model):
 # different branches to different subreddits
 class RedditGithubBranch(models.Model):
     name = models.TextField(primary_key=True) # retard proof.. hopefully
+    repo = models.ForeignKey(RedditGithubRepo)
     branch = models.TextField()
 
     def __unicode__(self):
