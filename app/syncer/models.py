@@ -37,7 +37,7 @@ class RedditGithubBranch(models.Model):
 # all subreddits need a branch
 class Subreddit(models.Model):
     name = models.TextField(primary_key=True)
-    branch = models.ForeignKey(GithubBranch)
+    branch = models.ForeignKey(RedditGithubBranch)
 
     def __unicode__(self):
         return self.name
