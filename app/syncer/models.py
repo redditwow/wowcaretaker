@@ -46,3 +46,6 @@ class Subreddit(models.Model):
 class Log(models.Model):
     timestamp = models.DateTimeField('date published')
     entry = models.TextField(max_length=2000)
+
+    def __unicode__(self):
+        return self.entry
