@@ -13,7 +13,7 @@ class GithubIP(models.Model):
 
 # stores important information about our github repos
 class RedditGithubRepo(models.Model):
-    url = models.UrlField(primary_key=True)
+    url = models.URLField(primary_key=True)
 
     # very important reddit configuration stuff.
     # this could all be hardcoded but why limit ourselves?
@@ -46,4 +46,3 @@ class Subreddit(models.Model):
 class Log(models.Model):
     timestamp = models.DateTimeField('date published')
     entry = models.TextField(max_length=2000)
-    
