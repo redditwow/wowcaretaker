@@ -31,17 +31,18 @@ class RedditGithubBranch(models.Model):
     name = models.TextField(primary_key=True) # retard proof.. hopefully
     repo = models.ForeignKey(RedditGithubRepo)
     branch = models.TextField()
+    subreddit = models.TextField() # branches get a subreddit, subreddits dont get branches
 
     def __unicode__(self):
         return self.name
 
 # all subreddits need a branch
-class Subreddit(models.Model):
-    name = models.TextField(primary_key=True)
-    branch = models.ForeignKey(RedditGithubBranch)
-
-    def __unicode__(self):
-        return self.name
+#class Subreddit(models.Model):
+#    name = models.TextField(primary_key=True)
+#    branch = models.ForeignKey(RedditGithubBranch)
+#
+#    def __unicode__(self):
+#        return self.name
 
 # simple syncer log
 class Log(models.Model):

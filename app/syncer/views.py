@@ -40,6 +40,11 @@ def subreddit(request, subreddit):
             else:
                 print "Request made from {ip} was valid and contained a payload".format(ip=request_ip)
 
+                # make sure the repo is in our allowed list
+
+
+                # figure out which branch it was using
+
                 # a valid request with payload means we need to call a task
                 syncer.tasks.pull_repo(subreddit, github_payload['repository']['url'])
 
