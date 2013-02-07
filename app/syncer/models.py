@@ -39,7 +39,7 @@ class RedditGithubBranch(models.Model):
     name = models.TextField(primary_key=True) # retard proof.. hopefully
     repo = models.ForeignKey(RedditGithubRepo)
     branch = models.TextField()
-    subreddit = models.ForeignKey(Subreddit)
+    subreddit = models.ManyToManyField(Subreddit)
 
     def __unicode__(self):
         return self.name
