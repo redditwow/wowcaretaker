@@ -11,6 +11,13 @@ class GithubIP(models.Model):
         return self.ip_address
 
 
+class Subreddit(models.Model):
+    name = models.TextField(primary_key=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 # stores important information about our github repos
 class RedditGithubRepo(models.Model):
     url = models.URLField(primary_key=True)
@@ -25,16 +32,18 @@ class RedditGithubRepo(models.Model):
     def __unicode__(self):
         return self.url
 
+
 # stores our github branch data. will let us sync
 # different branches to different subreddits
 class RedditGithubBranch(models.Model):
     name = models.TextField(primary_key=True) # retard proof.. hopefully
     repo = models.ForeignKey(RedditGithubRepo)
     branch = models.TextField()
-    subreddit = models.TextField() # branches get a subreddit, subreddits dont get branches
+    subreddit = models.ForeignKey(Subreddit)
 
     def __unicode__(self):
         return self.name
+
 
 # all subreddits need a branch
 #class Subreddit(models.Model):
