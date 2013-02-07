@@ -20,7 +20,7 @@ class Subreddit(models.Model):
 
 # stores important information about our github repos
 class RedditGithubRepo(models.Model):
-    url = models.URLField(primary_key=True)
+    url = models.URLField(unique=True)
 
     # very important reddit configuration stuff.
     # this could all be hardcoded but why limit ourselves?
@@ -44,14 +44,6 @@ class RedditGithubBranch(models.Model):
     def __unicode__(self):
         return self.name
 
-
-# all subreddits need a branch
-#class Subreddit(models.Model):
-#    name = models.TextField(primary_key=True)
-#    branch = models.ForeignKey(RedditGithubBranch)
-#
-#    def __unicode__(self):
-#        return self.name
 
 # simple syncer log
 class Log(models.Model):
