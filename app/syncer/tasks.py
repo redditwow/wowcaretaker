@@ -20,11 +20,13 @@ def _get_repo_information(payload):
                 branch=branch,
                 head_commit=head_commit)
 
-def pull_repo(readonly_url, url):
+def pull_repo(readonly_url, url, branch):
 
     if sdebug: print "git pull from remote " + readonly_url
     
-    repo = RedditGithubBranch.objects.get(repo=url)
+    # obtain the 
+    repo = RedditGuthubRepo.objects.get(url=url)
+    branch = RedditGithubBranch.objects.get(repo=repo.pk, branch=branch)
 
     print repo.name
 
@@ -34,5 +36,8 @@ def pull_repo(readonly_url, url):
 def git_to_reddit(json_payload):
     if sdebug: print "git_to_reddit()"
 
+    repo = _get_repo_information(json_payload)
+
     # first off. pull the fucking repo.
-    pull_repo(json_payload)
+    repo_synced = pull_repo(repo.readonly_url, repo.url)
+    
