@@ -72,7 +72,7 @@ def _remove_posts_with_urls(subreddit, num_posts=100):
             'rmurlscs': "Successfully removed post with url {url}",
         }
 
-    if posts not None:
+    if posts is not None:
         for post in posts:
             cur_post_id += 1
 
