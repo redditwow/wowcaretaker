@@ -40,3 +40,6 @@ etc/settings.ini
 repo
 celerybeat-schedule
 *.pid
+my.css
+wc.db
+.sass-cache
