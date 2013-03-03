@@ -67,9 +67,9 @@ def _remove_posts_with_urls(subreddit, num_posts=100):
     posts = _get_new_posts(subreddit, limit=num_posts)
     urls = _get_banned_urls()
     debstrs = {
-            'sburl' = "Successfully replied to post with reason for banned url",
-            'armurl' = "post.url matches {url}. attempting to remove",
-            'rmurlscs' = "Successfully removed post with url {url}",
+            'sburl': "Successfully replied to post with reason for banned url",
+            'armurl': "post.url matches {url}. attempting to remove",
+            'rmurlscs': "Successfully removed post with url {url}",
         }
 
     if posts not None:
