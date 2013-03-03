@@ -163,7 +163,7 @@ def git_to_reddit(json_payload):
         print repo_path, "\n", css_path, "\n", images_path, "\n", sidebar_file, "\n"
 
         
-        current_datetime = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime()))
+        current_datetime = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
 
         css_header = """ 
             /** This Stylesheet was automatically uploaded by the /r/wow bot
