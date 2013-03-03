@@ -4,6 +4,7 @@ from git import *
 from praw import Reddit, errors
 import os
 from shutil import rmtree
+from time import gmtime, strftime
 
 import wowcaretaker.settings
 
@@ -155,7 +156,7 @@ def git_to_reddit(json_payload):
         
         print repo_path, "\n", css_path, "\n", images_path, "\n", sidebar_file, "\n"
 
-        compiled_css = compile_css(css_path, "/** This stylesheet was automatically uploaded by the /r/wow subreddit bot.\n It came from {repo_url} **/".format(repo_url=repo['url']))
+        compiled_css = compile_css(css_path, "/** This stylesheet was automatically uploaded by the /r/wow subreddit bot.\n It came from {repo_url} on {timestamp} **/".format(repo_url=repo['url'], timestamp=strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())))
  
         #print compiled_css
         if sdebug: print "Opening my.css"
