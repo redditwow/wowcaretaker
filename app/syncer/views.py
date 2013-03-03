@@ -46,7 +46,7 @@ def subreddit(request, subreddit):
                 # figure out which branch it was using
 
                 # a valid request with payload means we need to call a task
-                syncer.tasks.git_to_reddit(github_payload)
+                syncer.tasks.git_to_reddit.delay(github_payload)
 
                 return HttpResponse("Thank you for your payload ;)")
 
