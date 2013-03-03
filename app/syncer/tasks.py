@@ -1,5 +1,6 @@
 from djcelery import celery
-from syncer.models import Subreddit, RedditGithubBranch, RedditGithubRepo, GithubIP, Log
+from syncer.models import (Subreddit, RedditGithubBranch, RedditGithubRepo, 
+    GithubIP, Log)
 from git import *
 from praw import Reddit, errors
 import os
@@ -12,8 +13,8 @@ r = wowcaretaker.settings.reddit
 
 # This is a fucking rubbish library. I dont want you to
 # fucking line-wrap my fucking content blocks. Fuck you.
-#import scss
-
+# import scss
+#
 # fuck it, let's just use sass that we installed from ruby
 # sure then we need more random ass shit on our prod environ
 # but its worth the hassle since scss is a load of fucking
@@ -55,7 +56,8 @@ def compile_css(css_path, css_header):
     except:
         print "There was an error during call()"
     else:
-        # assuming everything went ok, create a var to hold our new css. include header as the top!
+        # assuming everything went ok, create a var to hold our new css.
+        # include header as the top!
         compiled_css = css_header
         
         # and now the awesome part..
@@ -115,7 +117,10 @@ def pull_repo(readonly_url, url, branch):
 
     # make directories if they don't exist
     if not os.path.exists(repo_path):
-        print "Path for repo does not exist. Creating repo path: {repo_path}".format(repo_path=repo_path)
+
+        s = "Path for repo does not exist. Creating repo path: {repo_path}"
+        print s.format(repo_path=repo_path)
+
         os.makedirs(repo_path)
         
         # the directory didnt exist which means we never created a git repo
@@ -134,6 +139,7 @@ def pull_repo(readonly_url, url, branch):
 
 @celery.task
 def git_to_reddit(json_payload):
+
     if sdebug: print "git_to_reddit()"
 
     repo = _get_repo_information(json_payload)
@@ -156,7 +162,16 @@ def git_to_reddit(json_payload):
         
         print repo_path, "\n", css_path, "\n", images_path, "\n", sidebar_file, "\n"
 
-        compiled_css = compile_css(css_path, "/** This stylesheet was automatically uploaded by the /r/wow subreddit bot.\n It came from {repo_url} on {timestamp} **/".format(repo_url=repo['url'], timestamp=strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())))
+        
+        current_datetime = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime()))
+
+        css_header = """ 
+            /** This Stylesheet was automatically uploaded by the /r/wow bot
+             **   It came from: {repo_url}
+             ** Unix Timestamp: {datetime}
+            """.format(repo_url=repo['url'], datetime=current_datetime)
+
+        compiled_css = compile_css(css_path, css_header)
  
         #print compiled_css
         if sdebug: print "Opening my.css"
