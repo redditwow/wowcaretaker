@@ -188,8 +188,9 @@ def git_to_reddit(json_payload):
 
             for path, dirs, files in os.walk(images_path):
                 for f in files:
+                    curimg_path = path + "/" + f
                     try:
-                        upload_image = sr.upload_image(image_path=(path+f))
+                        upload_image = sr.upload_image(image_path=curimg_path)
                         s = "{file} upload {status} to {srn}"
 
                     except (errors.APIException, errors.ClientException) as e:
