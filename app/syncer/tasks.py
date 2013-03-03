@@ -180,9 +180,23 @@ def git_to_reddit(json_payload):
         temp.close()
         if sdebug: print "Closing my.css"
 
-        # upload the stylesheet to reddit
+        # upload the images, stylesheet and sidebar to reddit
+        # and yes, it must be in that order to prevent BAD_CSS.
         for subreddit in branch_db.subreddit.all():
-            sr = r.get_subreddit(subreddit.name)
+            srname = subreddit.name
+            sr = r.get_subreddit(srname)
+
+            for path, dirs, files in os.walk(images_path):
+                for f in files:
+                    try:
+                        upload_image = sr.upload_image(image_path=(path+f))
+                        s = "{file} upload {status} to {srn}"
+
+                    except (errors.APIException, errors.ClientException) as e:
+                        print e
+                        print s.format(file=f, status="failed",srn=srname)
+                    else:
+                        print s.format(file=f, status="successful",srn=srname)
 
             try:
                 sr.set_stylesheet(compiled_css)
