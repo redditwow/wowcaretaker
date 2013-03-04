@@ -13,9 +13,9 @@ System Status
 | **/r/wow**    | [![wowcssstatus][wowcssstatus]][wowcssstatus] | [![wowimgstatus][wowimgstatus]][wowimgstatus] | [![wowsdbstatus][wowsdbstatus]][wowsdbstatus] |
 
 
-[wowcssstatus]: http://gohan.fluxflashor.net/status/wow-css.png
-[wowimgstatus]: http://gohan.fluxflashor.net/status/wow-images.png
-[wowsdbstatus]: http://gohan.fluxflashor.net/status/wow-sidebar.png
+[wowcssstatus]: https://battletagfriendfinder.com/sync-status/wow-css.png
+[wowimgstatus]: https://battletagfriendfinder.com/sync-status/wow-images.png
+[wowsdbstatus]: https://battletagfriendfinder.com/sync-status/wow-sidebar.png
 
 
 What does it do?
