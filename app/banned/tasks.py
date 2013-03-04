@@ -7,11 +7,6 @@ import wowcaretaker.settings as wcs
 r = wcs.reddit
 sdebug = wcs.DEBUG
 
-# key = identifier string
-# value = function to call
-ACCEPTABLE_THINGS = {
-        'urls' : '_remove_posts_with_urls',
-    }
 
 def _debug_list_output(provided_list):
 
@@ -28,7 +23,7 @@ def _sdb_print(message):
 
 def _get_banned_urls():
 
-    banned_urls = Url.objects.get()
+    banned_urls = Url.objects.all()
 
     _debug_list_output(banned_urls)
 
@@ -45,7 +40,7 @@ def _get_new_posts(subreddit, limit=100):
 
     else:
         try:
-            posts = sr.get_new(limit)
+            posts = sr.get_new(limit=limit)
 
         except (errors.APIException, errors.ClientException) as e:
             print e
@@ -77,8 +72,9 @@ def _remove_posts_with_urls(subreddit, num_posts=100):
             cur_post_id += 1
 
             for url in urls:
-                if url in post.url:
-                    _sdb_print(debstr['armurl'].format(url))
+               
+                if url.url in post.url:
+                    _sdb_print(debstrs['armurl'].format(url=url.url))
 
                     try:
                         post.remove()
@@ -87,7 +83,7 @@ def _remove_posts_with_urls(subreddit, num_posts=100):
                         print e
 
                     else:
-                        _sdb_print(debstrs['rmurlscs'])
+                        _sdb_print(debstrs['rmurlscs'].format(url=url.url))
 
                         try:
                             post.add_comment(url.copypasta)
@@ -100,6 +96,13 @@ def _remove_posts_with_urls(subreddit, num_posts=100):
 
 
 
+# key = identifier string
+# value = function to call
+ACCEPTABLE_THINGS = {
+        'urls' : _remove_posts_with_urls,
+    }
+
+
 @celery.task
 def remove_banned_things(thing, subreddits=[], **kwargs):
 
@@ -108,4 +111,7 @@ def remove_banned_things(thing, subreddits=[], **kwargs):
     else:
 
         for subreddit in subreddits:
+            print thing
+            print subreddit
+            print ACCEPTABLE_THINGS[thing]
             ACCEPTABLE_THINGS[thing](subreddit, **kwargs)
