@@ -34,7 +34,7 @@ sdebug = True
 def _status_update(subreddit, type_, progression):
 
     image_source = status_in_path + type_ + "/" + progression + status_fileext
-    image_dest = status_out_path + subreddit + "-" + type_ + "-" + progression + status_fileext
+    image_dest = status_out_path + subreddit + "-" + type_ + status_fileext
     
     if not os.path.exists(status_out_path):
         try:
