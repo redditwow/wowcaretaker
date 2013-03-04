@@ -25,7 +25,7 @@ from syncer.models import RedditGithubBranch, Subreddit, RedditGithubRepo
 
 # status images.
 status_out_path = "/home/reddit/wchtml/status/"
-status_in_path = "../../img/status/"
+status_in_path = "../img/status/"
 status_fileext = ".png"
 
 # enables console logging for these functions
@@ -35,6 +35,9 @@ def _status_update(subreddit, type_, progression):
 
     image_source = status_in_path + type_ + "/" + progression + status_fileext
     image_dest = status_out_path + subreddit + "-" + type_ + status_fileext
+
+    print image_source
+    print image_dest
     
     if not os.path.exists(status_out_path):
         try:
@@ -46,8 +49,8 @@ def _status_update(subreddit, type_, progression):
 
     try:
         copy2(image_source, image_dest)
-    except:
-        print "Some exception while copying a file"
+    except IOError as e:
+        print e
         return False
 
     return True
