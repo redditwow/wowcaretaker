@@ -5,6 +5,19 @@ Our friendly robot that takes care of moderation and menial tasks for the wow su
 
 This bot was designed to make life super simple for the moderators and will eventually let us do some pretty crazy shit. Since it is backed by a database and web interface, we can add new rules to the bot for moderation without any code changes.
 
+System Status
+=================================
+
+| Subreddit     | Status                                      |||
+| ------------- |:-------------:|:-------------:|:-------------:|
+| **/r/wow**    | [![wowcssstatus][wowcssstatus]][wowcssstatus] | [![wowimgstatus][wowimgstatus]][wowimgstatus] | [![wowsdbstatus][wowsdbstatus]][wowsdbstatus] |
+
+
+[wowcssstatus]: http://gohan.fluxflashor.net/status/wow-css.png
+[wowimgstatus]: http://gohan.fluxflashor.net/status/wow-images.png
+[wowsdbstatus]: http://gohan.fluxflashor.net/status/wow-sidebar.png
+
+
 What does it do?
 ================
 
