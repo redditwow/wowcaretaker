@@ -225,17 +225,19 @@ def git_to_reddit(json_payload):
             for path, dirs, files in os.walk(images_path):
                 for f in files:
                     curimg_path = path + "/" + f
-                    try:
-                        upload_image = sr.upload_image(image_path=curimg_path)
-                        s = "{file} upload {status} to {srn}"
+                    if not os.path.isdir(f):
 
-                    except (errors.APIException, errors.ClientException) as e:
-                        print e
-                        print s.format(file=f, status="failed",srn=srname)
-                        _status_update(srname, "images", "failed")
-                        image_failure = True
-                    else:
-                        print s.format(file=f, status="successful",srn=srname)
+                        try:
+                            upload_image = sr.upload_image(image_path=curimg_path)
+                            s = "{file} upload {status} to {srn}"
+
+                        except (errors.APIException, errors.ClientException) as e:
+                            print e
+                            print s.format(file=f, status="failed",srn=srname)
+                            _status_update(srname, "images", "failure")
+                            image_failure = True
+                        else:
+                            print s.format(file=f, status="successful",srn=srname)
 
             if not image_failure:
                 _status_update(srname, "images", "success")
@@ -244,7 +246,7 @@ def git_to_reddit(json_payload):
                 sr.set_stylesheet(compiled_css)
             except (errors.APIException, errors.ClientException) as e:
                 print e
-                _status_update(srname, "css", "failed")
+                _status_update(srname, "css", "failure")
             else:
                 if sdebug: print "Stylesheet Updated"
                 _status_update(srname, "css", "success")
@@ -254,7 +256,7 @@ def git_to_reddit(json_payload):
                 sr.update_settings(description=sidebar_data)
             except (errors.APIException, errors.ClientException) as e:
                 print e
-                _status_update(srname, "sidebar", "failed")
+                _status_update(srname, "sidebar", "failure")
             else:
                 if sdebug: print "Sidebar Updated."
                 _status_update(srname, "sidebar", "success")
