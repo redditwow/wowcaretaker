@@ -220,6 +220,8 @@ def git_to_reddit(json_payload):
             _status_update(srname, "css", "syncing")
             _status_update(srname, "sidebar", "syncing")
 
+            image_failure = False
+
             for path, dirs, files in os.walk(images_path):
                 for f in files:
                     curimg_path = path + "/" + f
