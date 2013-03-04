@@ -213,6 +213,10 @@ def git_to_reddit(json_payload):
             srname = subreddit.name
             sr = r.get_subreddit(srname)
 
+            _status_update(srname, "images", "syncing")
+            _status_update(srname, "css", "syncing")
+            _status_update(srname, "sidebar", "syncing")
+
             for path, dirs, files in os.walk(images_path):
                 for f in files:
                     curimg_path = path + "/" + f
@@ -223,21 +227,30 @@ def git_to_reddit(json_payload):
                     except (errors.APIException, errors.ClientException) as e:
                         print e
                         print s.format(file=f, status="failed",srn=srname)
+                        _status_update(srname, "images", "failed")
+                        image_failure = True
                     else:
                         print s.format(file=f, status="successful",srn=srname)
+
+            if not image_failure:
+                _status_update(srname, "images", "success")
 
             try:
                 sr.set_stylesheet(compiled_css)
             except (errors.APIException, errors.ClientException) as e:
                 print e
+                _status_update(srname, "css", "failed")
             else:
                 if sdebug: print "Stylesheet Updated"
+                _status_update(srname, "css", "success")
 
             sidebar_data = open(sidebar_file, 'r').read()
             try:
                 sr.update_settings(description=sidebar_data)
             except (errors.APIException, errors.ClientException) as e:
                 print e
+                _status_update(srname, "sidebar", "failed")
             else:
                 if sdebug: print "Sidebar Updated."
+                _status_update(srname, "sidebar", "success")
     
