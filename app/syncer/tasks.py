@@ -4,7 +4,7 @@ from syncer.models import (Subreddit, RedditGithubBranch, RedditGithubRepo,
 from git import *
 from praw import Reddit, errors
 import os
-from shutil import rmtree
+from shutil import rmtree, copy2
 from time import gmtime, strftime
 
 import wowcaretaker.settings
@@ -23,10 +23,37 @@ from subprocess import call
 
 from syncer.models import RedditGithubBranch, Subreddit, RedditGithubRepo
 
+# status images.
+status_out_path = "/home/reddit/wchtml/status/"
+status_in_path = "../../img/status/"
+status_fileext = ".png"
+
 # enables console logging for these functions
 sdebug = True
 
+def _status_update(subreddit, type_, progression):
+
+    image_source = status_in_path + type_ + "/" + progression + status_fileext
+    image_dest = status_out_path + subreddit + "-" + type_ + "-" + progression + status_fileext
+    
+    if not os.path.exists(status_out_path):
+        try:
+            os.makedirs(status_out_path)        
+        except IOError as e:
+            print e
+            print "Could not update status images"
+            return False
+
+    try:
+        copy2(image_source, image_dest)
+    except:
+        print "Some exception while copying a file"
+        return False
+
+    return True
+
 def _get_repo_information(payload):
+
     url = payload['repository']['url']
     readonly_url = payload['repository']['url'].replace("https://", "git://") + ".git"
     branch = payload['ref'].replace("refs/heads/", "")
