@@ -73,6 +73,14 @@ def _remove_posts_with_urls(subreddit, num_posts=100):
 
             for url in urls:
                
+                # really our urls should be stored as regex in the database
+                # but this is just a lot simpler.
+                # before this hack, urls with www. or another subdomain
+                # or even https would not get removed.
+                url.url = url.url.replace("http://", "")
+                # best get rid of the trailing slash too, just incase.
+                url.url = url.url.replace("/", "")
+
                 if url.url in post.url:
                     _sdb_print(debstrs['armurl'].format(url=url.url))
 
