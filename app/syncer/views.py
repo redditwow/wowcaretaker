@@ -7,16 +7,33 @@ from django.views.decorators.csrf import csrf_exempt
 from syncer.models import Subreddit, GithubIP
 import simplejson as json
 
+import urllib2
+import ipaddr
+
 import syncer.tasks
 
-def _is_github_ip(ip):
-    allowed_ips = list(GithubIP.objects.all())
+api_url = "https://api.github.com/"
 
-    for allowed_ip in allowed_ips:
-        if ip == allowed_ip.ip_address:
+def gh_api_req(path):
+
+    try:
+        request_data = urllib2.urlopen(api_url+path).read()
+    except urllib2.HTTPError, e:
+        print "HTTP Error: %d" % e.code
+    return json.loads(request_data)
+
+
+def _is_github_ip(ip):
+
+    meta = gh_api_req("meta")
+
+    for ipcidr in meta['hooks']:
+    
+        if ipaddr.IPAddress(ip) in ipaddr.IPNetwork(ipcidr):
             return True
 
-    return False
+    else:
+        return False
 
 
 @csrf_exempt
