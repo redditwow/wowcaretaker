@@ -94,7 +94,7 @@ def _remove_posts_with_urls(subreddit, num_posts=100):
                         _sdb_print(debstrs['rmurlscs'].format(url=url.url))
 
                         try:
-                            post.add_comment(url.copypasta)
+                            post.add_comment(url.copypasta.text)
 
                         except (errors.APIException, 
                                 errors.ClientException) as e:
