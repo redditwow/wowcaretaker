@@ -180,6 +180,7 @@ def _remove_posts_with_youtubechannel(subreddit, limit=num_posts):
 # value = function to call
 ACCEPTABLE_THINGS = {
         'urls' : _remove_posts_with_urls,
+        'youtube_channels': _remove_posts_with_youtubechannel,
     }
 
 
