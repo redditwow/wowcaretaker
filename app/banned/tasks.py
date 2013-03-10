@@ -145,7 +145,7 @@ def _remove_posts_with_urls(subreddit, num_posts=100):
 
 
 
-def _remove_posts_with_youtubechannel(subreddit, limit=num_posts):
+def _remove_posts_with_youtubechannel(subreddit, num_posts=100):
 
     cur_post_id = 0
     posts = _get_new_posts(subreddit, limit=num_posts)
