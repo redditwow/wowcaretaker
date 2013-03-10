@@ -151,7 +151,7 @@ def _remove_posts_with_youtubechannel(subreddit, num_posts=100):
 
     cur_post_id = 0
     posts = _get_new_posts(subreddit, limit=num_posts)
-    banned_channel_names = _get_banned_youtubechannels()
+    banned_channels = _get_banned_youtubechannels()
 
     if posts is not None:
         for post in posts:
@@ -165,11 +165,13 @@ def _remove_posts_with_youtubechannel(subreddit, num_posts=100):
                     video_data = yt_service.GetYouTubeVideoEntry(video_id=video_id)
                     video_author = video_data.author[0].name.text
 
-                    if video_author in banned_channel_names:
+                    if video_author in banned_channels.name:
                         try:
                             post.remove()
                         except (errors.APIException, errors.ClientException) as e:
                             print e
+                    else:
+                        _sdb_print("{video_id} by {video_author} is not banned".format(video_id=video_id, video_author=video_author))
                 else:
                     _sdb_print("Malformed Youtube URL: %s - Removing".format(post.url))
                     
