@@ -158,7 +158,7 @@ def _remove_posts_with_youtubechannel(subreddit, num_posts=100):
             cur_post_id += 1
 
             if "youtube" in post.url:
-                _sdb_print("youtube was in {url}".format(post.url))
+                _sdb_print("youtube was in {url}".format(url=post.url))
                 video_id = _get_video_id(post.url)
 
                 if video_id is not None:
