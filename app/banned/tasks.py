@@ -158,7 +158,7 @@ def _remove_posts_with_youtubechannel(subreddit, limit=num_posts):
             if "youtube" in post.url:
                 video_id = _get_video_id(post.url)
 
-                if video_id not None:
+                if video_id is not None:
                     video_data = yt_service.GetYouTubeVideoEntry(video_id=video_id)
                     video_author = video_data.author[0].name.text
 
