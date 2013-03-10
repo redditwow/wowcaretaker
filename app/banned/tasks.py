@@ -98,6 +98,7 @@ def _get_video_id(url):
 
 
 def _remove_posts_with_urls(subreddit, num_posts=100):
+    _sdb_print("_remove_posts_with_urls is running.")
 
     cur_post_id = 0
     posts = _get_new_posts(subreddit, limit=num_posts)
@@ -146,6 +147,7 @@ def _remove_posts_with_urls(subreddit, num_posts=100):
 
 
 def _remove_posts_with_youtubechannel(subreddit, num_posts=100):
+    _sdb_print("_remove_posts_with_youtubechannel is running.")
 
     cur_post_id = 0
     posts = _get_new_posts(subreddit, limit=num_posts)
@@ -156,6 +158,7 @@ def _remove_posts_with_youtubechannel(subreddit, num_posts=100):
             cur_post_id += 1
 
             if "youtube" in post.url:
+                _sdb_print("youtube was in {url}".format(post.url))
                 video_id = _get_video_id(post.url)
 
                 if video_id is not None:
@@ -168,12 +171,16 @@ def _remove_posts_with_youtubechannel(subreddit, num_posts=100):
                         except (errors.APIException, errors.ClientException) as e:
                             print e
                 else:
-                    _sdb_print("COULD NOT DETECT VIDEO_ID FROM YOUTUBE VIDEO. REMOVING ANYWAYS %s".format(post.url))
+                    _sdb_print("Malformed Youtube URL: %s - Removing".format(post.url))
                     
                     try:
                         post.remove()
                     except (errors.APIException, errors.ClientException) as e:
                         print e
+                    else:
+                        _sdb_print("Post was removed.")
+    else:
+        _sdb_print("No posts were included. Something has gone terribly wrong.")
 
 
 # key = identifier string
