@@ -16,7 +16,7 @@ yt_service = gdata.youtube.service.YouTubeService()
 yt_service.ssl = True
 
 def _debug_list_output(provided_list):
-
+    return True # dirty
     if sdebug:
         for li in provided_list:
             print li
@@ -192,7 +192,6 @@ def remove_banned_things(thing, subreddits=[], **kwargs):
     else:
 
         for subreddit in subreddits:
-            print thing
-            print subreddit
-            print ACCEPTABLE_THINGS[thing]
+            print "Processing request for removal of {thing} for /r/{subreddit}".format(thing=thing, subreddit=subreddit)
+
             ACCEPTABLE_THINGS[thing](subreddit, **kwargs)
