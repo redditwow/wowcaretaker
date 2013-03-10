@@ -172,8 +172,6 @@ def _remove_posts_with_youtubechannel(subreddit, num_posts=100):
                                 post.remove()
                             except (errors.APIException, errors.ClientException) as e:
                                 print e
-                        else:
-                            _sdb_print("{video_id} by {video_author} is not banned".format(video_id=video_id, video_author=video_author))
                 else:
                     _sdb_print("Malformed Youtube URL: %s - Removing".format(post.url))
                     
