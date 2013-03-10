@@ -1,6 +1,6 @@
 from djcelery import celery
 from praw import Reddit, errors
-from urlparse import urlparse
+from urlparse import urlparse, parse_qs
 
 # wowcaretaker specific
 from banned.models import (Copypasta, ModReason, Url, YoutubeChannel, Phrase)
