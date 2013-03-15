@@ -226,10 +226,9 @@ def git_to_reddit(json_payload):
                 for f in files:
                     curimg_path = path + "/" + f
                     if not os.path.isdir(f):
-
+                        s = "{file} upload {status} to {srn}"
                         try:
                             upload_image = sr.upload_image(image_path=curimg_path)
-                            s = "{file} upload {status} to {srn}"
 
                         except (errors.APIException, errors.ClientException) as e:
                             print e
